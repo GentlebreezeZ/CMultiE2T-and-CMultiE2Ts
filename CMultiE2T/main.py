@@ -107,19 +107,13 @@ class Experiment:
                 if epoch % 401 == 0 and epoch > 0:
                     torch.save(model, config.args.outdir + str(epoch) + 'model.pth')
                 if epoch == 1550:
-                    torch.save(model, config.args.outdir + str(epoch) + 'model.pth')
                     self.evaluate_rank_and_hits(model, config.d.test_idxs)
                     opt = torch.optim.Adam(model.parameters(), lr=float(0.000001))
                 if epoch == 1850:
-                    torch.save(model, config.args.outdir + str(epoch) + 'model.pth')
                     self.evaluate_rank_and_hits(model, config.d.test_idxs)
                     opt = torch.optim.Adam(model.parameters(), lr=float(0.0000001))
                 if epoch >= 1900 and epoch % 15 ==0:
-                    torch.save(model, config.args.outdir + str(epoch) + 'model.pth')
                     self.evaluate_rank_and_hits(model, config.d.test_idxs)
-                # if epoch > 50:
-                #     torch.save(model, config.args.outdir + str(epoch) + 'model.pth')
-                #     self.evaluate_rank_and_hits(model, config.d.test_idxs)
 
     def evaluate_rank_and_hits(self, model, data):
         test_data = list(data)
@@ -142,7 +136,7 @@ class Experiment:
             over_num_type += 1
 
             if index % 2000 == 0:
-                print('剩余测试数据的数量为: ', len(test_data) - index)
+                print('The number of remaining test data is: ', len(test_data) - index)
 
             tiled_fact = list(chunks(tiled_fact, 128))
             pred = model.pred_evalation(tiled_fact[0])
