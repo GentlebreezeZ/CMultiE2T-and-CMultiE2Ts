@@ -146,8 +146,6 @@ class Experiment():
                                                          t=self.cmultie2t_model.emb_types.weight)
         self.train_transe_mix(model=self.transe_mix_model, lr=self.transe_lr, epochs=self.transe_epoch,
                               train_data=self.train_i_indexes_transe)
-        torch.save(self.cmultie2t_model, config.args.outdir + '0cmultie2t.pth')
-        torch.save(self.transe_mix_model, config.args.outdir + '0transe.pth')
         print('-------------------------------start eval-------------------------------')
         self.evaluate_rank_and_hits(config.d.test_et_data_idxs, cmultie2t_model=self.cmultie2t_model,
                                     transe_model=self.transe_mix_model)
@@ -162,8 +160,6 @@ class Experiment():
                                          train_data=self.train_i_indexes_transe)
             # evalation
             index += 1
-            torch.save(self.cmultie2t_model, config.args.outdir + str(index) + 'cmultie2t.pth')
-            torch.save(self.transe_mix_model, config.args.outdir + str(index) + 'transe.pth')
             print('-------------------------------start eval-------------------------------')
             self.evaluate_rank_and_hits(config.d.test_et_data_idxs, cmultie2t_model=self.cmultie2t_model,
                                         transe_model=self.transe_mix_model)
@@ -275,16 +271,10 @@ class Experiment():
                     ffile.write(s_f)
                     logger.info('-------transe-------epoch: {} train_loss: {}'.format(epoch, train_loss))
                 if epoch == 600:
-                    # torch.save(self.param, config.args.outdir + '2000param.pth')
-                    # torch.save(model, config.args.outdir + '500transe_model.pth')
                     opt = torch.optim.Adam(model.parameters(), lr=float(0.00001))
                 if epoch == 1200:
-                    # torch.save(self.param, config.args.outdir + '2000param.pth')
-                    # torch.save(model, config.args.outdir + '1000transe_model.pth')
                     opt = torch.optim.Adam(model.parameters(), lr=float(0.000002))
                 if epoch == 1800:
-                    # torch.save(self.param, config.args.outdir + '2000param.pth')
-                    # torch.save(model, config.args.outdir + '1500transe_model.pth')
                     opt = torch.optim.Adam(model.parameters(), lr=float(0.0000005))
                 opt = torch.optim.Adam(model.parameters(), lr=float(lr_list[batch + 1]))
             logger.info('-------transe training is cmopleted-------')
@@ -358,7 +348,7 @@ class Experiment():
                 over_num_type += 1
 
                 if index % 50 == 0:
-                    print('剩余测试数据的数量为: ', len(test_data) - index)
+                    print('The number of remaining test data is:', len(test_data) - index)
 
                 correct_index = fact_et[1]
                 score1 = self.evaluate_rank_score(cmultie2t_model, fact_et)
