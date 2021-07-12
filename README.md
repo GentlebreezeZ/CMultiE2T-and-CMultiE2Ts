@@ -2,7 +2,7 @@
 
 ### Requirements
 The codebase is implemented in Python 3.8 or 3.6. Required packages are:
-    pytorch    1.8 or pytorch 1.9
+    pytorch    1.8(gpu) or pytorch 1.9(gpu)
     
 ### Entity Type prediction Results of CMultiE2T
 Dataset | MRR | Hits@1 | Hits@3 | Hits@10
